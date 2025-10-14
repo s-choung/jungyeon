@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periodic Table - Catalyst Digital Universe</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+        }
+        #root {
+            width: 100%;
+            min-height: 100vh;
+        }
+        .element-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .element-card:hover:not(.disabled) {
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(97, 220, 163, 0.6);
+        }
+        .element-card.disabled {
+            opacity: 0.3;
+            filter: grayscale(100%);
+            cursor: not-allowed;
+        }
+        .element-card.available {
+            box-shadow: 0 0 10px rgba(97, 220, 163, 0.4);
+        }
+        .category-alkali-metal { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); }
+        .category-alkaline-earth-metal { background: linear-gradient(135deg, #feca57, #ff9ff3); }
+        .category-transition-metal { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+        .category-post-transition-metal { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
+        .category-metalloid { background: linear-gradient(135deg, #ff9ff3, #54a0ff); }
+        .category-nonmetal { background: linear-gradient(135deg, #61dca3, #2b4539); }
+        .category-halogen { background: linear-gradient(135deg, #f368e0, #ff9ff3); }
+        .category-noble-gas { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .category-lanthanide { background: linear-gradient(135deg, #fd79a8, #fdcb6e); }
+        .category-actinide { background: linear-gradient(135deg, #e17055, #d63031); }
+
+        .modal {
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .data-table {
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .data-table::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .data-table::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .data-table::-webkit-scrollbar-thumb {
+            background: rgba(97, 220, 163, 0.5);
+            border-radius: 4px;
+        }
+
+        .data-table::-webkit-scrollbar-thumb:hover {
+            background: rgba(97, 220, 163, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const ELECTROCATALYST_METALS = ['Fe', 'Co', 'Ni', 'Cu', 'Ru', 'Rh', 'Pd', 'Ag', 'Os', 'Ir', 'Pt', 'Au'];
+        const SUPPORT_MATERIALS = ['Al2O3', 'CaO', 'CeO2', 'Cr2O3', 'Fe2O3', 'La2O3', 'MgO', 'SiO2', 'SnO2', 'TiO2', 'V2O5', 'WO3', 'ZnO', 'ZrO2'];
+
+        // Helper function to format chemical formulas with subscripts
+        const formatChemicalFormula = (formula) => {
+            return formula.replace(/(\d+)/g, '<sub>$1</sub>');
+        };
+
+        const PeriodicTable = () => {
+            const [elements, setElements] = useState([]);
+            const [alloyData, setAlloyData] = useState({});
+            const [thermalData, setThermalData] = useState({});
+            const [loading, setLoading] = useState(true);
+
+            // State management
+            const [catalystMode, setCatalystMode] = useState('electrocatalyst'); // 'electrocatalyst' or 'thermal'
+            const [selectedSupport, setSelectedSupport] = useState(null);
+            const [selectedElement, setSelectedElement] = useState(null);
+            const [showDataTable, setShowDataTable] = useState(false);
+
+            useEffect(() => {
+                Promise.all([
+                    fetch('elements.json').then(r => r.json()),
+                    fetch('alloy-data.json').then(r => r.json()),
+                    fetch('thermal-catalyst-data.json').then(r => r.json())
+                ])
+                .then(([elementsData, alloyDataJson, thermalDataJson]) => {
+                    setElements(elementsData);
+                    setAlloyData(alloyDataJson);
+                    setThermalData(thermalDataJson);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    setLoading(false);
+                });
+            }, []);
+
+            const getCategoryClass = (category) => {
+                return `category-${category.toLowerCase().replace(/\s+/g, '-')}`;
+            };
+
+            const isElementAvailable = (element) => {
+                if (catalystMode === 'electrocatalyst') {
+                    return ELECTROCATALYST_METALS.includes(element.symbol);
+                } else if (catalystMode === 'thermal' && selectedSupport) {
+                    return ELECTROCATALYST_METALS.includes(element.symbol);
+                }
+                return false;
+            };
+
+            const handleElementClick = (element) => {
+                if (!isElementAvailable(element)) return;
+
+                setSelectedElement(element);
+                setShowDataTable(true);
+            };
+
+            const renderElement = (element) => {
+                if (!element) return <div className="w-16 h-20"></div>;
+
+                const isAvailable = isElementAvailable(element);
+
+                return (
+                    <div
+                        key={element.number}
+                        className={`element-card w-16 h-20 rounded-lg p-1 flex flex-col items-center justify-center ${getCategoryClass(element.category)} ${isAvailable ? 'available' : 'disabled'}`}
+                        onClick={() => handleElementClick(element)}
+                    >
+                        <div className="text-xs text-white opacity-80">{element.number}</div>
+                        <div className="text-2xl font-bold text-white">{element.symbol}</div>
+                        <div className="text-[8px] text-white opacity-80 truncate w-full text-center">{element.name}</div>
+                    </div>
+                );
+            };
+
+            const renderPeriodicTable = () => {
+                const table = Array(10).fill(null).map(() => Array(18).fill(null));
+
+                elements.forEach(element => {
+                    let row = element.period - 1;
+                    let col = element.group - 1;
+
+                    if (element.category === 'lanthanide') {
+                        row = 8;
+                        col = element.number - 57;
+                    } else if (element.category === 'actinide') {
+                        row = 9;
+                        col = element.number - 89;
+                    }
+
+                    if (row >= 0 && row < 10 && col >= 0 && col < 18) {
+                        table[row][col] = element;
+                    }
+                });
+
+                return table.map((row, rowIndex) => (
+                    <div key={rowIndex} className="flex gap-1 justify-center">
+                        {row.map((element, colIndex) => (
+                            <div key={`${rowIndex}-${colIndex}`}>
+                                {element ? renderElement(element) : <div className="w-16 h-20"></div>}
+                            </div>
+                        ))}
+                    </div>
+                ));
+            };
+
+            const renderAlloyDataTable = () => {
+                if (!selectedElement) return null;
+
+                const alloys = [];
+                ELECTROCATALYST_METALS.forEach(metal => {
+                    if (metal === selectedElement.symbol) return;
+
+                    const pair1 = `${selectedElement.symbol}-${metal}`;
+                    const pair2 = `${metal}-${selectedElement.symbol}`;
+
+                    if (alloyData[pair1]) {
+                        alloys.push({ pair: pair1, data: alloyData[pair1] });
+                    } else if (alloyData[pair2]) {
+                        alloys.push({ pair: pair2, data: alloyData[pair2] });
+                    }
+                });
+
+                return (
+                    <div className="bg-black bg-opacity-60 rounded-lg p-6 max-w-6xl w-full">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-2xl font-bold text-white">
+                                Binary Alloys with {selectedElement.symbol}
+                            </h3>
+                            <button
+                                onClick={() => setShowDataTable(false)}
+                                className="text-white text-3xl hover:text-gray-300"
+                            >
+                                &times;
+                            </button>
+                        </div>
+                        <div className="data-table overflow-x-auto">
+                            <table className="w-full text-white">
+                                <thead className="bg-[#61dca3] text-black sticky top-0">
+                                    <tr>
+                                        <th className="px-4 py-3 text-left">Alloy</th>
+                                        <th className="px-4 py-3 text-left">Stability</th>
+                                        <th className="px-4 py-3 text-left">Activity</th>
+                                        <th className="px-4 py-3 text-left">Selectivity</th>
+                                        <th className="px-4 py-3 text-left">Overpotential</th>
+                                        <th className="px-4 py-3 text-left">Tafel Slope</th>
+                                        <th className="px-4 py-3 text-left">Durability</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {alloys.map((alloy, idx) => (
+                                        <tr key={idx} className="border-b border-gray-700 hover:bg-white hover:bg-opacity-10">
+                                            <td className="px-4 py-3 font-bold">{alloy.pair}</td>
+                                            <td className="px-4 py-3">{alloy.data.stability}</td>
+                                            <td className="px-4 py-3">{alloy.data.activity}</td>
+                                            <td className="px-4 py-3">{alloy.data.selectivity}</td>
+                                            <td className="px-4 py-3">{alloy.data.overpotential}</td>
+                                            <td className="px-4 py-3">{alloy.data.tafelSlope}</td>
+                                            <td className="px-4 py-3">{alloy.data.durability}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderThermalDataTable = () => {
+                if (!selectedElement || !selectedSupport) return null;
+
+                const catalystData = thermalData[selectedSupport];
+                if (!catalystData) return null;
+
+                const metals = Object.keys(catalystData).map(metal => ({
+                    metal,
+                    data: catalystData[metal]
+                }));
+
+                return (
+                    <div className="bg-black bg-opacity-60 rounded-lg p-6 max-w-6xl w-full">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-2xl font-bold text-white">
+                                Thermal Catalysts with <span dangerouslySetInnerHTML={{ __html: formatChemicalFormula(selectedSupport) }} /> Support
+                            </h3>
+                            <button
+                                onClick={() => setShowDataTable(false)}
+                                className="text-white text-3xl hover:text-gray-300"
+                            >
+                                &times;
+                            </button>
+                        </div>
+                        <div className="data-table overflow-x-auto">
+                            <table className="w-full text-white">
+                                <thead className="bg-[#61b3dc] text-black sticky top-0">
+                                    <tr>
+                                        <th className="px-4 py-3 text-left">Metal</th>
+                                        <th className="px-4 py-3 text-left">Dispersion</th>
+                                        <th className="px-4 py-3 text-left">Temperature</th>
+                                        <th className="px-4 py-3 text-left">Conversion</th>
+                                        <th className="px-4 py-3 text-left">Selectivity</th>
+                                        <th className="px-4 py-3 text-left">Lifetime</th>
+                                        <th className="px-4 py-3 text-left">Regeneration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {metals.map((item, idx) => (
+                                        <tr
+                                            key={idx}
+                                            className={`border-b border-gray-700 hover:bg-white hover:bg-opacity-10 ${item.metal === selectedElement.symbol ? 'bg-[#61b3dc] bg-opacity-20' : ''}`}
+                                        >
+                                            <td className="px-4 py-3 font-bold">{item.metal}</td>
+                                            <td className="px-4 py-3">{item.data.dispersion}</td>
+                                            <td className="px-4 py-3">{item.data.temperature}</td>
+                                            <td className="px-4 py-3">{item.data.conversion}</td>
+                                            <td className="px-4 py-3">{item.data.selectivity}</td>
+                                            <td className="px-4 py-3">{item.data.lifetime}</td>
+                                            <td className="px-4 py-3">{item.data.regeneration}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                );
+            };
+
+            if (loading) {
+                return (
+                    <div className="flex items-center justify-center min-h-screen">
+                        <div className="text-white text-2xl">Loading Catalyst Database...</div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen p-8">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-8">
+                            <h1 className="text-5xl font-bold text-white mb-4">
+                                Catalyst Digital Universe
+                            </h1>
+                            <h2 className="text-3xl text-[#61dca3] mb-6">Interactive Catalyst Explorer</h2>
+
+                            {/* Main Toggle Buttons */}
+                            <div className="flex gap-4 justify-center mb-6">
+                                <button
+                                    onClick={() => {
+                                        setCatalystMode('electrocatalyst');
+                                        setSelectedSupport(null);
+                                        setShowDataTable(false);
+                                    }}
+                                    className={`px-8 py-4 font-bold text-lg rounded-lg transition-all duration-300 ${
+                                        catalystMode === 'electrocatalyst'
+                                            ? 'bg-gradient-to-r from-[#61dca3] to-[#2b4539] text-white shadow-[0_0_30px_rgba(97,220,163,0.8)] scale-105'
+                                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                    }`}
+                                >
+                                    Nanocluster for Electrocatalyst
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setCatalystMode('thermal');
+                                        setShowDataTable(false);
+                                    }}
+                                    className={`px-8 py-4 font-bold text-lg rounded-lg transition-all duration-300 ${
+                                        catalystMode === 'thermal'
+                                            ? 'bg-gradient-to-r from-[#61b3dc] to-[#0abde3] text-white shadow-[0_0_30px_rgba(97,179,220,0.8)] scale-105'
+                                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                    }`}
+                                >
+                                    Supported Catalyst for Thermal Reaction
+                                </button>
+                            </div>
+
+                            {/* Support Material Selector */}
+                            {catalystMode === 'thermal' && (
+                                <div className="mb-6">
+                                    <h3 className="text-xl text-white mb-3">Select Support Material:</h3>
+                                    <div className="flex flex-wrap gap-3 justify-center">
+                                        {SUPPORT_MATERIALS.map(support => (
+                                            <button
+                                                key={support}
+                                                onClick={() => {
+                                                    setSelectedSupport(support);
+                                                    setShowDataTable(false);
+                                                }}
+                                                className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                                                    selectedSupport === support
+                                                        ? 'bg-[#61b3dc] text-white shadow-[0_0_15px_rgba(97,179,220,0.6)]'
+                                                        : 'bg-gray-600 text-gray-200 hover:bg-gray-500'
+                                                }`}
+                                                dangerouslySetInnerHTML={{ __html: formatChemicalFormula(support) }}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Periodic Table */}
+                        {(catalystMode === 'electrocatalyst' || (catalystMode === 'thermal' && selectedSupport)) && (
+                            <>
+                                <div className="mb-4 text-center">
+                                    <p className="text-[#61dca3] text-lg">
+                                        {catalystMode === 'electrocatalyst'
+                                            ? 'Click on any highlighted metal to view binary alloy combinations'
+                                            : <>Click on any highlighted metal to view catalyst data for <span dangerouslySetInnerHTML={{ __html: formatChemicalFormula(selectedSupport) }} /></>
+                                        }
+                                    </p>
+                                </div>
+                                <div className="flex flex-col gap-1 mb-8">
+                                    {renderPeriodicTable()}
+                                </div>
+                            </>
+                        )}
+                    </div>
+
+                    {/* Data Table Modal */}
+                    {showDataTable && (
+                        <div
+                            className="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+                            onClick={() => setShowDataTable(false)}
+                        >
+                            <div
+                                className="modal-content"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {catalystMode === 'electrocatalyst' ? renderAlloyDataTable() : renderThermalDataTable()}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<PeriodicTable />);
+    </script>
+</body>
+</html>

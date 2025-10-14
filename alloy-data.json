@@ -1,0 +1,530 @@
+{
+  "Fe-Co": {
+    "stability": "High",
+    "activity": "8.5",
+    "selectivity": "92%",
+    "overpotential": "320 mV",
+    "tafelSlope": "65 mV/dec",
+    "durability": "1000 h"
+  },
+  "Fe-Ni": {
+    "stability": "High",
+    "activity": "7.8",
+    "selectivity": "88%",
+    "overpotential": "340 mV",
+    "tafelSlope": "72 mV/dec",
+    "durability": "950 h"
+  },
+  "Fe-Cu": {
+    "stability": "Medium",
+    "activity": "6.2",
+    "selectivity": "75%",
+    "overpotential": "380 mV",
+    "tafelSlope": "85 mV/dec",
+    "durability": "800 h"
+  },
+  "Fe-Ru": {
+    "stability": "Very High",
+    "activity": "9.1",
+    "selectivity": "95%",
+    "overpotential": "290 mV",
+    "tafelSlope": "58 mV/dec",
+    "durability": "1200 h"
+  },
+  "Fe-Rh": {
+    "stability": "High",
+    "activity": "8.7",
+    "selectivity": "91%",
+    "overpotential": "310 mV",
+    "tafelSlope": "62 mV/dec",
+    "durability": "1100 h"
+  },
+  "Fe-Pd": {
+    "stability": "High",
+    "activity": "8.3",
+    "selectivity": "89%",
+    "overpotential": "325 mV",
+    "tafelSlope": "68 mV/dec",
+    "durability": "1050 h"
+  },
+  "Fe-Ag": {
+    "stability": "Medium",
+    "activity": "5.8",
+    "selectivity": "72%",
+    "overpotential": "395 mV",
+    "tafelSlope": "88 mV/dec",
+    "durability": "750 h"
+  },
+  "Fe-Os": {
+    "stability": "Very High",
+    "activity": "9.3",
+    "selectivity": "96%",
+    "overpotential": "285 mV",
+    "tafelSlope": "56 mV/dec",
+    "durability": "1250 h"
+  },
+  "Fe-Ir": {
+    "stability": "Very High",
+    "activity": "9.0",
+    "selectivity": "94%",
+    "overpotential": "295 mV",
+    "tafelSlope": "60 mV/dec",
+    "durability": "1180 h"
+  },
+  "Fe-Pt": {
+    "stability": "Very High",
+    "activity": "9.4",
+    "selectivity": "97%",
+    "overpotential": "280 mV",
+    "tafelSlope": "54 mV/dec",
+    "durability": "1300 h"
+  },
+  "Fe-Au": {
+    "stability": "Medium",
+    "activity": "6.5",
+    "selectivity": "78%",
+    "overpotential": "370 mV",
+    "tafelSlope": "82 mV/dec",
+    "durability": "820 h"
+  },
+  "Co-Ni": {
+    "stability": "High",
+    "activity": "8.2",
+    "selectivity": "90%",
+    "overpotential": "330 mV",
+    "tafelSlope": "70 mV/dec",
+    "durability": "1020 h"
+  },
+  "Co-Cu": {
+    "stability": "Medium",
+    "activity": "6.8",
+    "selectivity": "80%",
+    "overpotential": "365 mV",
+    "tafelSlope": "80 mV/dec",
+    "durability": "850 h"
+  },
+  "Co-Ru": {
+    "stability": "Very High",
+    "activity": "9.2",
+    "selectivity": "95%",
+    "overpotential": "288 mV",
+    "tafelSlope": "57 mV/dec",
+    "durability": "1220 h"
+  },
+  "Co-Rh": {
+    "stability": "High",
+    "activity": "8.9",
+    "selectivity": "93%",
+    "overpotential": "305 mV",
+    "tafelSlope": "61 mV/dec",
+    "durability": "1150 h"
+  },
+  "Co-Pd": {
+    "stability": "High",
+    "activity": "8.6",
+    "selectivity": "91%",
+    "overpotential": "318 mV",
+    "tafelSlope": "66 mV/dec",
+    "durability": "1080 h"
+  },
+  "Co-Ag": {
+    "stability": "Medium",
+    "activity": "6.3",
+    "selectivity": "76%",
+    "overpotential": "385 mV",
+    "tafelSlope": "86 mV/dec",
+    "durability": "780 h"
+  },
+  "Co-Os": {
+    "stability": "Very High",
+    "activity": "9.5",
+    "selectivity": "97%",
+    "overpotential": "278 mV",
+    "tafelSlope": "53 mV/dec",
+    "durability": "1280 h"
+  },
+  "Co-Ir": {
+    "stability": "Very High",
+    "activity": "9.2",
+    "selectivity": "95%",
+    "overpotential": "292 mV",
+    "tafelSlope": "59 mV/dec",
+    "durability": "1200 h"
+  },
+  "Co-Pt": {
+    "stability": "Very High",
+    "activity": "9.6",
+    "selectivity": "98%",
+    "overpotential": "275 mV",
+    "tafelSlope": "52 mV/dec",
+    "durability": "1320 h"
+  },
+  "Co-Au": {
+    "stability": "Medium",
+    "activity": "7.0",
+    "selectivity": "82%",
+    "overpotential": "358 mV",
+    "tafelSlope": "78 mV/dec",
+    "durability": "860 h"
+  },
+  "Ni-Cu": {
+    "stability": "Medium",
+    "activity": "6.5",
+    "selectivity": "77%",
+    "overpotential": "375 mV",
+    "tafelSlope": "83 mV/dec",
+    "durability": "830 h"
+  },
+  "Ni-Ru": {
+    "stability": "Very High",
+    "activity": "8.8",
+    "selectivity": "93%",
+    "overpotential": "298 mV",
+    "tafelSlope": "63 mV/dec",
+    "durability": "1170 h"
+  },
+  "Ni-Rh": {
+    "stability": "High",
+    "activity": "8.5",
+    "selectivity": "91%",
+    "overpotential": "312 mV",
+    "tafelSlope": "67 mV/dec",
+    "durability": "1100 h"
+  },
+  "Ni-Pd": {
+    "stability": "High",
+    "activity": "8.2",
+    "selectivity": "89%",
+    "overpotential": "328 mV",
+    "tafelSlope": "71 mV/dec",
+    "durability": "1050 h"
+  },
+  "Ni-Ag": {
+    "stability": "Low",
+    "activity": "5.5",
+    "selectivity": "70%",
+    "overpotential": "405 mV",
+    "tafelSlope": "92 mV/dec",
+    "durability": "720 h"
+  },
+  "Ni-Os": {
+    "stability": "Very High",
+    "activity": "9.1",
+    "selectivity": "95%",
+    "overpotential": "288 mV",
+    "tafelSlope": "58 mV/dec",
+    "durability": "1230 h"
+  },
+  "Ni-Ir": {
+    "stability": "Very High",
+    "activity": "8.9",
+    "selectivity": "94%",
+    "overpotential": "298 mV",
+    "tafelSlope": "62 mV/dec",
+    "durability": "1180 h"
+  },
+  "Ni-Pt": {
+    "stability": "Very High",
+    "activity": "9.3",
+    "selectivity": "96%",
+    "overpotential": "282 mV",
+    "tafelSlope": "55 mV/dec",
+    "durability": "1280 h"
+  },
+  "Ni-Au": {
+    "stability": "Medium",
+    "activity": "6.8",
+    "selectivity": "80%",
+    "overpotential": "365 mV",
+    "tafelSlope": "80 mV/dec",
+    "durability": "850 h"
+  },
+  "Cu-Ru": {
+    "stability": "High",
+    "activity": "7.5",
+    "selectivity": "86%",
+    "overpotential": "345 mV",
+    "tafelSlope": "74 mV/dec",
+    "durability": "980 h"
+  },
+  "Cu-Rh": {
+    "stability": "High",
+    "activity": "7.2",
+    "selectivity": "84%",
+    "overpotential": "355 mV",
+    "tafelSlope": "77 mV/dec",
+    "durability": "940 h"
+  },
+  "Cu-Pd": {
+    "stability": "Medium",
+    "activity": "6.9",
+    "selectivity": "81%",
+    "overpotential": "368 mV",
+    "tafelSlope": "81 mV/dec",
+    "durability": "890 h"
+  },
+  "Cu-Ag": {
+    "stability": "Low",
+    "activity": "5.2",
+    "selectivity": "68%",
+    "overpotential": "415 mV",
+    "tafelSlope": "95 mV/dec",
+    "durability": "690 h"
+  },
+  "Cu-Os": {
+    "stability": "High",
+    "activity": "7.8",
+    "selectivity": "88%",
+    "overpotential": "335 mV",
+    "tafelSlope": "71 mV/dec",
+    "durability": "1020 h"
+  },
+  "Cu-Ir": {
+    "stability": "High",
+    "activity": "7.6",
+    "selectivity": "87%",
+    "overpotential": "342 mV",
+    "tafelSlope": "73 mV/dec",
+    "durability": "990 h"
+  },
+  "Cu-Pt": {
+    "stability": "High",
+    "activity": "8.0",
+    "selectivity": "90%",
+    "overpotential": "325 mV",
+    "tafelSlope": "68 mV/dec",
+    "durability": "1060 h"
+  },
+  "Cu-Au": {
+    "stability": "Medium",
+    "activity": "6.0",
+    "selectivity": "74%",
+    "overpotential": "390 mV",
+    "tafelSlope": "87 mV/dec",
+    "durability": "800 h"
+  },
+  "Ru-Rh": {
+    "stability": "Very High",
+    "activity": "9.4",
+    "selectivity": "97%",
+    "overpotential": "282 mV",
+    "tafelSlope": "55 mV/dec",
+    "durability": "1290 h"
+  },
+  "Ru-Pd": {
+    "stability": "Very High",
+    "activity": "9.1",
+    "selectivity": "95%",
+    "overpotential": "292 mV",
+    "tafelSlope": "59 mV/dec",
+    "durability": "1220 h"
+  },
+  "Ru-Ag": {
+    "stability": "Medium",
+    "activity": "7.0",
+    "selectivity": "82%",
+    "overpotential": "362 mV",
+    "tafelSlope": "79 mV/dec",
+    "durability": "870 h"
+  },
+  "Ru-Os": {
+    "stability": "Very High",
+    "activity": "9.7",
+    "selectivity": "99%",
+    "overpotential": "270 mV",
+    "tafelSlope": "50 mV/dec",
+    "durability": "1350 h"
+  },
+  "Ru-Ir": {
+    "stability": "Very High",
+    "activity": "9.5",
+    "selectivity": "98%",
+    "overpotential": "278 mV",
+    "tafelSlope": "53 mV/dec",
+    "durability": "1310 h"
+  },
+  "Ru-Pt": {
+    "stability": "Very High",
+    "activity": "9.8",
+    "selectivity": "99%",
+    "overpotential": "268 mV",
+    "tafelSlope": "49 mV/dec",
+    "durability": "1380 h"
+  },
+  "Ru-Au": {
+    "stability": "High",
+    "activity": "7.8",
+    "selectivity": "87%",
+    "overpotential": "338 mV",
+    "tafelSlope": "72 mV/dec",
+    "durability": "950 h"
+  },
+  "Rh-Pd": {
+    "stability": "Very High",
+    "activity": "9.0",
+    "selectivity": "94%",
+    "overpotential": "298 mV",
+    "tafelSlope": "61 mV/dec",
+    "durability": "1190 h"
+  },
+  "Rh-Ag": {
+    "stability": "Medium",
+    "activity": "6.8",
+    "selectivity": "80%",
+    "overpotential": "368 mV",
+    "tafelSlope": "81 mV/dec",
+    "durability": "850 h"
+  },
+  "Rh-Os": {
+    "stability": "Very High",
+    "activity": "9.6",
+    "selectivity": "98%",
+    "overpotential": "275 mV",
+    "tafelSlope": "52 mV/dec",
+    "durability": "1330 h"
+  },
+  "Rh-Ir": {
+    "stability": "Very High",
+    "activity": "9.4",
+    "selectivity": "97%",
+    "overpotential": "283 mV",
+    "tafelSlope": "56 mV/dec",
+    "durability": "1280 h"
+  },
+  "Rh-Pt": {
+    "stability": "Very High",
+    "activity": "9.7",
+    "selectivity": "99%",
+    "overpotential": "272 mV",
+    "tafelSlope": "51 mV/dec",
+    "durability": "1360 h"
+  },
+  "Rh-Au": {
+    "stability": "High",
+    "activity": "7.5",
+    "selectivity": "85%",
+    "overpotential": "345 mV",
+    "tafelSlope": "74 mV/dec",
+    "durability": "920 h"
+  },
+  "Pd-Ag": {
+    "stability": "Medium",
+    "activity": "6.5",
+    "selectivity": "78%",
+    "overpotential": "375 mV",
+    "tafelSlope": "83 mV/dec",
+    "durability": "830 h"
+  },
+  "Pd-Os": {
+    "stability": "Very High",
+    "activity": "9.3",
+    "selectivity": "96%",
+    "overpotential": "285 mV",
+    "tafelSlope": "57 mV/dec",
+    "durability": "1260 h"
+  },
+  "Pd-Ir": {
+    "stability": "Very High",
+    "activity": "9.1",
+    "selectivity": "95%",
+    "overpotential": "293 mV",
+    "tafelSlope": "60 mV/dec",
+    "durability": "1210 h"
+  },
+  "Pd-Pt": {
+    "stability": "Very High",
+    "activity": "9.5",
+    "selectivity": "98%",
+    "overpotential": "278 mV",
+    "tafelSlope": "54 mV/dec",
+    "durability": "1320 h"
+  },
+  "Pd-Au": {
+    "stability": "High",
+    "activity": "7.3",
+    "selectivity": "84%",
+    "overpotential": "352 mV",
+    "tafelSlope": "76 mV/dec",
+    "durability": "900 h"
+  },
+  "Ag-Os": {
+    "stability": "Medium",
+    "activity": "6.8",
+    "selectivity": "80%",
+    "overpotential": "368 mV",
+    "tafelSlope": "81 mV/dec",
+    "durability": "850 h"
+  },
+  "Ag-Ir": {
+    "stability": "Medium",
+    "activity": "6.5",
+    "selectivity": "78%",
+    "overpotential": "378 mV",
+    "tafelSlope": "84 mV/dec",
+    "durability": "820 h"
+  },
+  "Ag-Pt": {
+    "stability": "High",
+    "activity": "7.2",
+    "selectivity": "83%",
+    "overpotential": "355 mV",
+    "tafelSlope": "77 mV/dec",
+    "durability": "920 h"
+  },
+  "Ag-Au": {
+    "stability": "Low",
+    "activity": "5.0",
+    "selectivity": "66%",
+    "overpotential": "420 mV",
+    "tafelSlope": "97 mV/dec",
+    "durability": "680 h"
+  },
+  "Os-Ir": {
+    "stability": "Very High",
+    "activity": "9.6",
+    "selectivity": "98%",
+    "overpotential": "276 mV",
+    "tafelSlope": "52 mV/dec",
+    "durability": "1340 h"
+  },
+  "Os-Pt": {
+    "stability": "Very High",
+    "activity": "9.9",
+    "selectivity": "99%",
+    "overpotential": "265 mV",
+    "tafelSlope": "48 mV/dec",
+    "durability": "1400 h"
+  },
+  "Os-Au": {
+    "stability": "High",
+    "activity": "8.0",
+    "selectivity": "88%",
+    "overpotential": "332 mV",
+    "tafelSlope": "70 mV/dec",
+    "durability": "980 h"
+  },
+  "Ir-Pt": {
+    "stability": "Very High",
+    "activity": "9.7",
+    "selectivity": "99%",
+    "overpotential": "273 mV",
+    "tafelSlope": "51 mV/dec",
+    "durability": "1370 h"
+  },
+  "Ir-Au": {
+    "stability": "High",
+    "activity": "7.8",
+    "selectivity": "87%",
+    "overpotential": "340 mV",
+    "tafelSlope": "73 mV/dec",
+    "durability": "960 h"
+  },
+  "Pt-Au": {
+    "stability": "High",
+    "activity": "8.2",
+    "selectivity": "90%",
+    "overpotential": "322 mV",
+    "tafelSlope": "67 mV/dec",
+    "durability": "1040 h"
+  }
+}
